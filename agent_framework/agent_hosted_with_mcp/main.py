@@ -5,6 +5,10 @@ from agent_framework.azure import AzureOpenAIChatClient
 from azure.ai.agentserver.agentframework import from_agent_framework  # pyright: ignore[reportUnknownVariableType]
 from azure.identity import DefaultAzureCredential
 
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 def create_agent():
     # Create an Agent using the Azure OpenAI Chat Client with a MCP Tool that connects to Microsoft Learn MCP
@@ -20,6 +24,14 @@ def create_agent():
 
 
 def main():
+    if os.environ.get("TRY_LOCALY", False):
+        import asyncio
+        async def main():
+            agent = create_agent()
+            result = await agent.run("Tell me a joke about a pirate.")
+            print(result.text)
+        asyncio.run(main())
+
     # Run the agent as a hosted agent
     from_agent_framework(lambda _: create_agent()).run()
 
