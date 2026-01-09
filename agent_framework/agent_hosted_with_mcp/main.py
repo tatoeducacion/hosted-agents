@@ -24,7 +24,7 @@ def create_agent():
 
 
 def main():
-    if os.environ.get("TRY_LOCALY", False):
+    if (os.environ.get("TRY_LOCALY", "") or "").lower() == "true":
         import asyncio
         async def main():
             agent = create_agent()

@@ -9,13 +9,13 @@ load_dotenv()
 assert os.environ.get("AI_FOUNDRY_API_KEY"), "The 'AI_FOUNDRY_API_KEY' environment variable is not set"
 
 # Config variables
-endpoint = "https://fondry-project-resource.services.ai.azure.com/api/projects/fondry-project"
-agent_name = "agent-framework-mcp"
+endpoint = "https://MyFoundry-Test-02.services.ai.azure.com/api/projects/proj-default"
+agent_name = "codespace-01"
 cpu = "0.5"
 memory = "1Gi"
 container_registry_name = "agentstestcr"
-agent_image_name = "agent_framework_mcp"
-agent_image_version = "v1"
+agent_image_name = "codespace_01"
+agent_image_version = "v3"
 model_name = "gpt-5-nano"
 other_settings = {}
 
@@ -41,3 +41,5 @@ agent = client.agents.create_version(
         }
     )
 )
+
+print(f"Created agent {agent_name} from {container_registry_name}.azurecr.io/{agent_image_name}:{agent_image_version}")
